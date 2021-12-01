@@ -1,4 +1,5 @@
 # CompanyEmployeesV2
+My version of the application featured in CodeMaze's Ultimate ASP.NET Core Web API Premium Second Edition tutorial
 
 ## Support :telephone:
 
