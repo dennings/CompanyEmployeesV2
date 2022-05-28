@@ -2,14 +2,12 @@
 using Entities.ErrorModel;
 using Entities.Exceptions;
 using Microsoft.AspNetCore.Diagnostics;
-using System.Net;
 
 namespace CompanyEmployees.Extensions
 {
         public static class ExceptionMiddlewareExtensions
         {
-            public static void ConfigureExceptionHandler(this WebApplication app,
-           ILoggerManager logger)
+            public static void ConfigureExceptionHandler(this WebApplication app, ILoggerManager logger)
             {
                 app.UseExceptionHandler(appError =>
                 {
