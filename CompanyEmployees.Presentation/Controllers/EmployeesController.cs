@@ -2,11 +2,6 @@
 using Microsoft.AspNetCore.Mvc;
 using Service.Contracts;
 using Shared.DataTransferObjects;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
 namespace CompanyEmployees.Presentation.Controllers
 {
@@ -61,8 +56,7 @@ namespace CompanyEmployees.Presentation.Controllers
         {
             if (employee is null)
                 return BadRequest("EmployeeForUpdateDto object is null");
-            _service.EmployeeService.UpdateEmployeeForCompany(companyId, id, employee,
-            compTrackChanges: false, empTrackChanges: true);
+            _service.EmployeeService.UpdateEmployeeForCompany(companyId, id, employee, compTrackChanges: false, empTrackChanges: true);
             return NoContent();
         }
 
@@ -71,9 +65,7 @@ namespace CompanyEmployees.Presentation.Controllers
         {
             if (patchDoc is null)
                 return BadRequest("patchDoc object sent from client is null.");
-            var result = _service.EmployeeService.GetEmployeeForPatch(companyId, id,
-            compTrackChanges: false,
-            empTrackChanges: true);
+            var result = _service.EmployeeService.GetEmployeeForPatch(companyId, id, compTrackChanges: false, empTrackChanges: true);
             patchDoc.ApplyTo(result.employeeToPatch);
             _service.EmployeeService.SaveChangesForPatch(result.employeeToPatch,
             result.employeeEntity);
