@@ -1,5 +1,6 @@
 # CompanyEmployeesV2
-My version of the application featured in CodeMaze's Ultimate ASP.NET Core Web API Premium Second Edition tutorial
+My version of the application featured in CodeMaze's Ultimate ASP.NET Core Web API Premium Second Edition tutorial.
+It is a .NET Core 6.0 Web API project with numerous advanced features.
 
 ## Support :telephone:
 
