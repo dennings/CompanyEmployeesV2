@@ -83,8 +83,7 @@ public class EmployeeLinks : IEmployeeLinks
 		return links;
 	}
 
-	private LinkCollectionWrapper<Entity> CreateLinksForEmployees(HttpContext httpContext,
-		LinkCollectionWrapper<Entity> employeesWrapper)
+	private LinkCollectionWrapper<Entity> CreateLinksForEmployees(HttpContext httpContext, LinkCollectionWrapper<Entity> employeesWrapper)
 	{
 		employeesWrapper.Links.Add(new Link(_linkGenerator.GetUriByAction(httpContext, "GetEmployeesForCompany", values: new { }),
 				"self",

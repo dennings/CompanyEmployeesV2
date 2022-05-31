@@ -1,9 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace Shared.RequestFeatures
 {
     public class PagedList<T> : List<T>
@@ -20,8 +15,7 @@ namespace Shared.RequestFeatures
             };
             AddRange(items);
         }
-        public static PagedList<T> ToPagedList(IEnumerable<T> source, int pageNumber, int
-       pageSize)
+        public static PagedList<T> ToPagedList(IEnumerable<T> source, int pageNumber, int pageSize)
         {
             var count = source.Count();
             var items = source
