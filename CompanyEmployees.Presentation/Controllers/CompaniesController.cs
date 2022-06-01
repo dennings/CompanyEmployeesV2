@@ -14,7 +14,8 @@ namespace CompanyEmployees.Presentation.Controllers
     public class CompaniesController : ControllerBase
     {
         private readonly IServiceManager _service;
-        public CompaniesController(IServiceManager service) => _service = service;
+        public CompaniesController(IServiceManager service) => 
+            _service = service;
 
         [HttpGet(Name = "GetCompanies")]
         [Authorize(Roles = "Manager")]
