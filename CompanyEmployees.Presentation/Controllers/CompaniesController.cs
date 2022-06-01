@@ -11,6 +11,7 @@ namespace CompanyEmployees.Presentation.Controllers
     [Route("api/[controller]")]
     [ApiController]
     [ResponseCache(CacheProfileName = "120SecondsDuration")]
+    [ApiExplorerSettings(GroupName = "v1")]
     public class CompaniesController : ControllerBase
     {
         private readonly IServiceManager _service;
@@ -34,7 +35,18 @@ namespace CompanyEmployees.Presentation.Controllers
             return Ok(company);
         }
 
+        /// <summary>
+        /// Creates a newly created company
+        /// </summary>
+        /// <param name="company"></param>
+        /// <returns>A newly created company</returns>
+        /// <response code="201">Returns the newly created item</response>
+        /// <response code="400">If the item is null</response>
+        /// <response code="422">If the model is invalid</response>
         [HttpPost(Name = "CreateCompany")]
+        [ProducesResponseType(201)]
+        [ProducesResponseType(400)]
+        [ProducesResponseType(422)]
         [ServiceFilter(typeof(ValidationFilterAttribute))]
         public async Task<IActionResult> CreateCompany([FromBody] CompanyForCreationDto company)
         {
