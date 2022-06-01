@@ -91,15 +91,15 @@ namespace Service
 
         private JwtSecurityToken GenerateTokenOptions(SigningCredentials signingCredentials, List<Claim> claims)
         {
-            var jwtSettings = _configuration.GetSection("JwtSettings");
             var tokenOptions = new JwtSecurityToken
             (
-             issuer: _jwtConfiguration.ValidIssuer,
-             audience: _jwtConfiguration.ValidAudience,
-             claims: claims,
-             expires: DateTime.Now.AddMinutes(Convert.ToDouble(_jwtConfiguration.Expires)),
-             signingCredentials: signingCredentials
+                issuer: _jwtConfiguration.ValidIssuer,
+                audience: _jwtConfiguration.ValidAudience,
+                claims: claims,
+                expires: DateTime.Now.AddMinutes(Convert.ToDouble(_jwtConfiguration.Expires)),
+                signingCredentials: signingCredentials
             );
+
             return tokenOptions;
         }
 
