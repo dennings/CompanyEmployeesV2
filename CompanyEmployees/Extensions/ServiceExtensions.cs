@@ -1,4 +1,5 @@
-﻿using AspNetCoreRateLimit;
+﻿using Asp.Versioning;
+using AspNetCoreRateLimit;
 using Contracts;
 using Entities.ConfigurationModels;
 using Entities.Models;
@@ -8,14 +9,16 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.AspNetCore.Mvc.Formatters;
-using Microsoft.AspNetCore.Mvc.Versioning;
 using Microsoft.EntityFrameworkCore;
+using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.OpenApi.Models;
 using Repository;
 using Service;
 using Service.Contracts;
+using System.Drawing.Printing;
 using System.Text;
+using static Microsoft.EntityFrameworkCore.DbLoggerCategory;
 
 namespace CompanyEmployees.Extensions
 {
@@ -49,7 +52,7 @@ namespace CompanyEmployees.Extensions
         public static void ConfigureSqlContext(this IServiceCollection services,
             IConfiguration configuration) =>
             services.AddDbContext<RepositoryContext>(opts =>
-            opts.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
+                opts.UseSqlServer(configuration.GetConnectionString("sqlConnection")));
 
         public static IMvcBuilder AddCustomCSVFormatter(this IMvcBuilder builder) =>
              builder.AddMvcOptions(config => config.OutputFormatters.Add(new
@@ -81,15 +84,26 @@ namespace CompanyEmployees.Extensions
             });
         }
 
+        // https://www.milanjovanovic.tech/blog/api-versioning-in-aspnetcore
         public static void ConfigureVersioning(this IServiceCollection services)
         {
             services.AddApiVersioning(opt =>
             {
+                opt.DefaultApiVersion = new ApiVersion(1);
                 opt.ReportApiVersions = true;
                 opt.AssumeDefaultVersionWhenUnspecified = true;
                 opt.DefaultApiVersion = new ApiVersion(1, 0);
-                opt.ApiVersionReader = new HeaderApiVersionReader("api-version");
-            });
+                //opt.ApiVersionReader = new HeaderApiVersionReader("api-version");
+                opt.ApiVersionReader = ApiVersionReader.Combine(
+                    new UrlSegmentApiVersionReader(),
+                    new HeaderApiVersionReader("X-Api-Version"),
+                    new QueryStringApiVersionReader("api-version")
+                    );
+                }).AddApiExplorer(options =>
+                {
+                    options.GroupNameFormat = "'v'V";
+                    options.SubstituteApiVersionInUrl = true;
+                }); ;
         }
 
         public static void ConfigureResponseCaching(this IServiceCollection services) =>
@@ -148,6 +162,8 @@ namespace CompanyEmployees.Extensions
             var jwtConfiguration = new JwtConfiguration();
             configuration.Bind(jwtConfiguration.Section, jwtConfiguration);
             var secretKey = Environment.GetEnvironmentVariable("SECRET");
+            secretKey = "CodeMazeSecretKeyCodeMazeSecretKey";
+
             services.AddAuthentication(opt =>
             {
                 opt.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;

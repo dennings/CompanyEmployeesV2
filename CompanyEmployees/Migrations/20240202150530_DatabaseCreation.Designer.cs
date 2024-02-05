@@ -12,8 +12,8 @@ using Repository;
 namespace CompanyEmployees.Migrations
 {
     [DbContext(typeof(RepositoryContext))]
-    [Migration("20220601064318_AdditionalUserFiledsForRefreshToken")]
-    partial class AdditionalUserFiledsForRefreshToken
+    [Migration("20240202150530_DatabaseCreation")]
+    partial class DatabaseCreation
     {
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
         {
@@ -229,15 +229,15 @@ namespace CompanyEmployees.Migrations
                     b.HasData(
                         new
                         {
-                            Id = "8cf343fe-9908-42ba-893f-ccc48b41d5c2",
-                            ConcurrencyStamp = "b98810d7-8f6b-4975-9247-d74ba90eb515",
+                            Id = "718eb140-87e9-4688-93f9-56ae9b7091d8",
+                            ConcurrencyStamp = "6b26a254-df04-4f51-9c9f-eb73e69615f1",
                             Name = "Manager",
                             NormalizedName = "MANAGER"
                         },
                         new
                         {
-                            Id = "ccb0e3f2-f5de-41c5-b56c-39d8c9c8691e",
-                            ConcurrencyStamp = "66451a07-aed7-4292-89b7-8f9037c522d2",
+                            Id = "4a6a14e5-9b81-4acf-acef-b0c528342633",
+                            ConcurrencyStamp = "c4be56e2-6b67-46ea-af82-e9dd85a32189",
                             Name = "Administrator",
                             NormalizedName = "ADMINISTRATOR"
                         });
